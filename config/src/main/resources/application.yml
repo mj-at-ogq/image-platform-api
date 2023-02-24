@@ -1,0 +1,46 @@
+
+server:
+  shutdown: graceful
+  compression:
+    enabled: true
+
+springdoc:
+  swagger-ui:
+    tagsSorter: alpha
+
+spring:
+  application:
+    name: Sample Project
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driverClassName: org.mariadb.jdbc.Driver
+    hikari:
+      jdbc-url: jdbc:mariadb://localhost/image-platform?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&rewriteBatchedStatements=true&sslMode=DISABLED&profileSql=true
+      username: ocp
+      password: 1234qwer
+      connection-timeout: 10000
+      idle-timeout: 120000
+      max-lifetime: 1200000
+      minimum-idle: 0
+      maximum-pool-size: 5
+      validation-timeout: 5000
+
+  jpa:
+    show-sql: false
+    generate-ddl: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
+        jdbc:
+          batch_size: 100
+
+logging:
+  level:
+    ROOT: INFO
