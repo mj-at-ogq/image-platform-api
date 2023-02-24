@@ -1,6 +1,6 @@
 package me.ogq.ocp.sample.controller
 
-import me.ogq.ocp.sample.usecase.board.exception.NotExistBoardException
+import me.ogq.ocp.sample.usecase.image.exception.NotExistImageException
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.validation.BindingResult
@@ -21,8 +21,8 @@ class APIExceptionController {
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(value = [NotExistBoardException::class])
-    fun handleNotExistBoardException(e: NotExistBoardException): ErrorRes {
+    @ExceptionHandler(value = [NotExistImageException::class])
+    fun handleNotExistImageException(e: NotExistImageException): ErrorRes {
         return ErrorRes(400000, e.message)
     }
 

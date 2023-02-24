@@ -1,4 +1,4 @@
-POST {{host}}/boards
+POST {{host}}/images
 Content-Type: application/json
 
 {
@@ -7,7 +7,7 @@ Content-Type: application/json
 }
 
 ###
-GET {{host}}/boards
+GET {{host}}/images
 
 ###
-GET {{host}}/boards/1658822653898001
+GET {{host}}/images/1658822653898001

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @SpringBootApplication
-class OcpSampleProjectApplication {
+class ApiApplication {
 
     @GetMapping("ping")
     fun pong() = "pong"
@@ -15,5 +15,5 @@ class OcpSampleProjectApplication {
 }
 
 fun main(args: Array<String>) {
-    runApplication<OcpSampleProjectApplication>(*args)
+    runApplication<ApiApplication>(*args)
 }

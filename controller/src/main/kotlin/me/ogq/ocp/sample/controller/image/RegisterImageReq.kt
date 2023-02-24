@@ -1,9 +1,9 @@
-package me.ogq.ocp.sample.controller.board
+package me.ogq.ocp.sample.controller.image
 
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
-class RegisterBoardReq(
+class RegisterImageReq(
     @NotBlank
     @Size(min = 2)
     val title: String,

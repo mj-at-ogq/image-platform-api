@@ -1,6 +1,6 @@
-package me.ogq.ocp.sample.usecase.board.dto
+package me.ogq.ocp.sample.usecase.image.dto
 
-class BoardDTO(
+class ImageDto(
     val id: String,
     val title: String,
     val content: String?

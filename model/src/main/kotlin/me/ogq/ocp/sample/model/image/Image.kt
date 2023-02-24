@@ -1,9 +1,9 @@
-package me.ogq.ocp.sample.model.board
+package me.ogq.ocp.sample.model.image
 
 import javax.persistence.*
 
 @Entity
-class Board(
+class Image(
     val title: String,
     @Column(columnDefinition = "TEXT")
     val content: String?

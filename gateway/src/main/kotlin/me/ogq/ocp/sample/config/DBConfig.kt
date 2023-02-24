@@ -10,7 +10,7 @@ import javax.sql.DataSource
 
 @EnableTransactionManagement
 @Configuration
-class DBConfig {
+class DbConfig {
     @Bean("dataSource")
     @ConfigurationProperties("spring.datasource.hikari")
     fun dataSource(): DataSource {
