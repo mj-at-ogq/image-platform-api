@@ -6,6 +6,7 @@ plugins {
     kotlin("plugin.jpa") version "1.6.21" apply false
     id("org.springframework.boot") version "2.7.2" apply false
     id("io.spring.dependency-management") version "1.0.12.RELEASE" apply false
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
 
 val jar: Jar by tasks
@@ -17,7 +18,6 @@ repositories {
         url = uri("https://nexus.ocp.ogq.me/repository/ogq/")
     }
 }
-
 
 java.sourceCompatibility = JavaVersion.VERSION_11
 java.targetCompatibility = JavaVersion.VERSION_11
@@ -38,6 +38,7 @@ subprojects {
         plugin("io.spring.dependency-management")
         plugin("org.jetbrains.kotlin.plugin.spring")
         plugin("org.jetbrains.kotlin.plugin.jpa")
+        plugin("org.jlleitschuh.gradle.ktlint")
     }
     java.sourceCompatibility = JavaVersion.VERSION_11
     java.targetCompatibility = JavaVersion.VERSION_11
@@ -63,10 +64,7 @@ subprojects {
         testImplementation("io.kotest:kotest-property:$koTestVer")
     }
 
-
     tasks.withType<Test> {
         useJUnitPlatform()
     }
-
 }
-
