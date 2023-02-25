@@ -7,6 +7,7 @@ import me.ogq.ocp.sample.usecase.image.command.GetDetailImageCommand
 import me.ogq.ocp.sample.usecase.image.command.RegisterImageCommand
 import me.ogq.ocp.sample.usecase.image.command.UploadImageCommand
 import me.ogq.ocp.sample.usecase.image.dto.ImageDto
+import me.ogq.ocp.sample.usecase.image.dto.RegisterImageDto
 import me.ogq.ocp.sample.usecase.image.dto.UploadImageDto
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -20,8 +21,8 @@ class ImageController(
 ) {
     @Operation(summary = "Image Meta Data 등록 API")
     @PostMapping
-    fun register(@Valid @RequestBody req: RegisterImageReq) {
-        imageService.register(RegisterImageCommand(req.title, req.description, req.imagePath))
+    fun register(@Valid @RequestBody req: RegisterImageReq) : RegisterImageDto {
+        return imageService.register(RegisterImageCommand(req.title, req.description, req.imagePath))
     }
 
     @Operation(summary = "Image 상세 조회 API")

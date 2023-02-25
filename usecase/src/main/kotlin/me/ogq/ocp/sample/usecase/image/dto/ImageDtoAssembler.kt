@@ -4,6 +4,6 @@ import me.ogq.ocp.sample.model.image.Image
 
 object ImageDtoAssembler {
     fun toDTO(image: Image): ImageDto {
-        return ImageDto(image.id, image.title, image.description)
+        return ImageDto(image.id, image.title, image.description, image.file.path.toString())
     }
 }

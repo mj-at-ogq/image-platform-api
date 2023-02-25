@@ -8,6 +8,7 @@ import me.ogq.ocp.sample.usecase.image.command.RegisterImageCommand
 import me.ogq.ocp.sample.usecase.image.command.UploadImageCommand
 import me.ogq.ocp.sample.usecase.image.dto.ImageDto
 import me.ogq.ocp.sample.usecase.image.dto.ImageDtoAssembler
+import me.ogq.ocp.sample.usecase.image.dto.RegisterImageDto
 import me.ogq.ocp.sample.usecase.image.dto.UploadImageDto
 import me.ogq.ocp.sample.usecase.image.exception.NotExistImageException
 import org.springframework.stereotype.Service
@@ -20,8 +21,9 @@ class ImageService(
     private val imageRepository: ImageRepository
 ) {
     @Transactional
-    fun register(cmd: RegisterImageCommand) {
-        imageRepository.save(ImageFactory.create(cmd.title, cmd.description, cmd.filePath))
+    fun register(cmd: RegisterImageCommand) : RegisterImageDto{
+        val image = imageRepository.save(ImageFactory.create(cmd.title, cmd.description, cmd.filePath))
+        return RegisterImageDto(image.id)
     }
 
     @Transactional(readOnly = true)

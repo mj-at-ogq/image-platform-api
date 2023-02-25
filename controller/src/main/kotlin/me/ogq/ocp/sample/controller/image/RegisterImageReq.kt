@@ -7,5 +7,6 @@ class RegisterImageReq(
     @NotBlank
     @Size(min = 2)
     val title: String,
-    val description: String?
+    val description: String?,
+    val imagePath: String
 )
