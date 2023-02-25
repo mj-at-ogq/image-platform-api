@@ -43,6 +43,7 @@ class Image(
             tags = emptySet(), publicityRightId = null, authorId = null
         )
 }
+
 @Embeddable
 @Access(AccessType.FIELD)
 data class ImageFile(
@@ -53,17 +54,19 @@ data class ImageFile(
     val source: MultipartFile?
 ) {
     fun generateFilePathWith(basePath: Path): Path {
-        if (!Files.exists(basePath)) {
-            Files.createDirectories(basePath)
-        }
+        requireNotNull(source) { "file source does not exist" }
 
-        val filename = source!!.originalFilename.toString()
+        Files.createDirectories(basePath).takeIf { !Files.exists(basePath) }
+
+        val filename = source.originalFilename.toString()
 
         return basePath.resolve(filename)
     }
 
-    fun transferTo(filePath: Path) {
-        source!!.transferTo(filePath.toFile())
+    fun transferTo(destinationPath: Path) {
+        requireNotNull(source) { "file source does not exist" }
+
+        source.transferTo(destinationPath.toFile())
     }
 }
 
@@ -82,7 +85,7 @@ class TagStringSetConverter : AttributeConverter<Set<String>, String> {
         if (dbData.isNullOrBlank()) {
             return setOf()
         }
-        return dbData.split(",").filterNot { it.isBlank() }.toSet()
+        return dbData.split(",").filter { it.isNotBlank() }.toSet()
     }
 }
 
