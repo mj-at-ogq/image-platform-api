@@ -15,15 +15,15 @@ import javax.validation.Valid
 class ImageController(
     private val imageService: ImageService
 ) {
-    @Operation(summary = "Image 등록 API")
+    @Operation(summary = "Image Meta Data 등록 API")
     @PostMapping
     fun register(@Valid @RequestBody req: RegisterImageReq) {
-        imageService.register(RegisterImageCommand(req.title, req.content))
+        imageService.register(RegisterImageCommand(req.title, req.description))
     }
 
     @Operation(summary = "Image 상세 조회 API")
     @GetMapping("{imageId}")
-    fun get(@PathVariable("imageId") imageId: Long
+    fun get(@PathVariable("imageId") imageId: String
     ): ImageDto {
         return imageService.get(GetDetailImageCommand(imageId))
     }

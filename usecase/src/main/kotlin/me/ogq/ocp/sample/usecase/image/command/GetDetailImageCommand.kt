@@ -1,3 +1,3 @@
 package me.ogq.ocp.sample.usecase.image.command
 
-class GetDetailImageCommand(val imageId: Long)
+class GetDetailImageCommand(val imageId: String)
