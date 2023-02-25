@@ -6,7 +6,9 @@ import me.ogq.ocp.sample.usecase.image.ImageService
 import me.ogq.ocp.sample.usecase.image.command.GetDetailImageCommand
 import me.ogq.ocp.sample.usecase.image.command.RegisterImageCommand
 import me.ogq.ocp.sample.usecase.image.dto.ImageDto
+import me.ogq.ocp.sample.usecase.image.dto.UploadImageDto
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 import javax.validation.Valid
 
 @Tag(name = "Image API")
@@ -26,5 +28,10 @@ class ImageController(
     fun get(@PathVariable("imageId") imageId: String
     ): ImageDto {
         return imageService.get(GetDetailImageCommand(imageId))
+    }
+
+    @PostMapping("/upload")
+    fun uploadImage(@RequestParam("file") file: MultipartFile): UploadImageDto {
+        return imageService.uploadImage(file)
     }
 }

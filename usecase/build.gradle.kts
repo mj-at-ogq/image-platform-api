@@ -12,4 +12,5 @@ jar.archiveClassifier.convention("")    // spring boot 2.5 부터 일반 jar 은
 
 dependencies {
     implementation(project(":model"))
+    implementation("commons-io:commons-io:2.11.0")
 }
