@@ -19,7 +19,7 @@ import javax.persistence.Id
 import kotlin.jvm.Transient
 
 @Entity
-class Image(
+data class Image(
     val title: String,
     val description: String?,
     @Convert(converter = TagStringSetConverter::class)
@@ -30,13 +30,9 @@ class Image(
     val authorId: Long?,
     @Embedded
     val file: ImageFile,
-) {
     @Id
-    val id: String = generateStringId()
-
-    private fun generateStringId(): String {
-        return UUID.randomUUID().toString()
-    }
+    val id: String = UUID.randomUUID().toString()
+) {
     constructor(title: String, description: String?, file: ImageFile) :
         this(
             title = title, description = description, file = file,

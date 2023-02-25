@@ -25,11 +25,11 @@ class ImageService(
 
     @Transactional
     fun upload(cmd: UploadImageCommand): UploadImageDto {
-        val basePath = Paths.get("/Users/mj/Documents/ogq/images")
+        val destination = Paths.get("/Users/mj/Documents/ogq/images")
         val imageFile = ImageFile(source = cmd.file, path = null)
 
         try {
-            val filePath = imageFile.generateFilePathWith(basePath)
+            val filePath = imageFile.generateFilePathWith(destination)
             imageFile.transferTo(filePath)
             return UploadImageDto(filePath.toString())
         } catch (e: IOException) {
