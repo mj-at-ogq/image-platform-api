@@ -1,5 +1,6 @@
 package me.ogq.ocp.sample.model.image
 
+import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
 import java.nio.file.Files
 import java.nio.file.Path
@@ -56,6 +57,7 @@ data class ImageFile(
 }
 
 @Converter
+@Component
 class TagStringSetConverter : AttributeConverter<Set<String>, String> {
 
     override fun convertToDatabaseColumn(attribute: Set<String>?): String? {
@@ -74,6 +76,7 @@ class TagStringSetConverter : AttributeConverter<Set<String>, String> {
 }
 
 @Converter
+@Component
 class PathConverter : AttributeConverter<Path, String> {
 
     override fun convertToDatabaseColumn(attribute: Path?): String {

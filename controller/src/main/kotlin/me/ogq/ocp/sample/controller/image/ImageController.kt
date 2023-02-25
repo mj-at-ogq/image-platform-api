@@ -3,6 +3,7 @@ package me.ogq.ocp.sample.controller.image
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import me.ogq.ocp.sample.usecase.image.ImageService
+import me.ogq.ocp.sample.usecase.image.RegisterImageService
 import me.ogq.ocp.sample.usecase.image.command.GetDetailImageCommand
 import me.ogq.ocp.sample.usecase.image.command.RegisterImageCommand
 import me.ogq.ocp.sample.usecase.image.command.UploadImageCommand
@@ -17,12 +18,13 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("images")
 class ImageController(
-    private val imageService: ImageService
+    private val imageService: ImageService,
+    private val registerImageService: RegisterImageService
 ) {
     @Operation(summary = "Image Meta Data 등록 API")
     @PostMapping
     fun register(@Valid @RequestBody req: RegisterImageReq) : RegisterImageDto {
-        return imageService.register(RegisterImageCommand(req.title, req.description, req.imagePath))
+        return registerImageService.register(RegisterImageCommand(req.title, req.description, req.imagePath))
     }
 
     @Operation(summary = "Image 상세 조회 API")
