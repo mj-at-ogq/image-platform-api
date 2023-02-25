@@ -11,7 +11,6 @@ class ApiApplication {
 
     @GetMapping("ping")
     fun pong() = "pong"
-
 }
 
 fun main(args: Array<String>) {

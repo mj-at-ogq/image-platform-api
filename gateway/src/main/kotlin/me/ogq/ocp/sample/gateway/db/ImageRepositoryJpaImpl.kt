@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class ImageRepositoryJpaImpl(
     private val imageJpaAdapter: ImageJpaAdapter
-): ImageRepository {
+) : ImageRepository {
     override fun save(image: Image) = imageJpaAdapter.save(image)
 
     override fun get(imageId: String) = imageJpaAdapter.get(imageId)

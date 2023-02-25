@@ -13,7 +13,7 @@ class RegisterImageService(
     private val imageFactory: ImageFactory
 ) {
     @Transactional
-    fun register(cmd: RegisterImageCommand) : RegisterImageDto{
+    fun register(cmd: RegisterImageCommand): RegisterImageDto {
         val image = imageRepository.save(imageFactory.create(cmd.title, cmd.description, cmd.filePath))
         return RegisterImageDto(image.id)
     }

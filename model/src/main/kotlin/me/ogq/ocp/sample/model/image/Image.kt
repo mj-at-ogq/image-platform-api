@@ -4,9 +4,18 @@ import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.*
-import javax.persistence.*
 import java.nio.file.Paths
+import java.util.UUID
+import javax.persistence.Access
+import javax.persistence.AccessType
+import javax.persistence.AttributeConverter
+import javax.persistence.Column
+import javax.persistence.Convert
+import javax.persistence.Converter
+import javax.persistence.Embeddable
+import javax.persistence.Embedded
+import javax.persistence.Entity
+import javax.persistence.Id
 import kotlin.jvm.Transient
 
 @Entity
@@ -29,8 +38,10 @@ class Image(
         return UUID.randomUUID().toString()
     }
     constructor(title: String, description: String?, file: ImageFile) :
-            this(title = title, description = description, file = file,
-                 tags = emptySet(), publicityRightId = null, authorId = null)
+        this(
+            title = title, description = description, file = file,
+            tags = emptySet(), publicityRightId = null, authorId = null
+        )
 }
 @Embeddable
 @Access(AccessType.FIELD)
@@ -40,8 +51,8 @@ data class ImageFile(
     val path: Path?,
     @Transient
     val source: MultipartFile?
-){
-    fun generateFilePathWith(basePath: Path): Path{
+) {
+    fun generateFilePathWith(basePath: Path): Path {
         if (!Files.exists(basePath)) {
             Files.createDirectories(basePath)
         }
@@ -51,7 +62,7 @@ data class ImageFile(
         return basePath.resolve(filename)
     }
 
-    fun transferTo(filePath: Path){
+    fun transferTo(filePath: Path) {
         source!!.transferTo(filePath.toFile())
     }
 }

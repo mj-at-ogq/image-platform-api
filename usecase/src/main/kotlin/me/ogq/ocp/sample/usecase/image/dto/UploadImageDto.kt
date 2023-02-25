@@ -1,5 +1,5 @@
 package me.ogq.ocp.sample.usecase.image.dto
 
-class UploadImageDto (
+class UploadImageDto(
     val imagePath: String
 )

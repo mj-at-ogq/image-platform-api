@@ -10,15 +10,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
-
 data class ErrorRes(val code: Int, val message: String?)
-
 
 @RestControllerAdvice(basePackageClasses = [APIExceptionController::class])
 class APIExceptionController {
     private val logger = LoggerFactory.getLogger(javaClass)
-
-
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = [NotExistImageException::class])
@@ -55,7 +51,7 @@ class APIExceptionController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = [Exception::class])
     fun handleException(e: Exception): ErrorRes {
-        logger.error("server error {}", e)
+        logger.error("server error $e")
         return ErrorRes(500000, e.message)
     }
 }
