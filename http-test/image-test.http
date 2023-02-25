@@ -3,7 +3,8 @@ Content-Type: application/json
 
 {
   "title": "제목",
-  "description": "본문..."
+  "description": "본문...",
+  "imagePath": "/Users/mj/Documents/ogq/images/DSC_6512.JPG"
 }
 
 ###
