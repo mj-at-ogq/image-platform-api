@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 
 data class ErrorRes(val code: Int, val message: String?)
 
-@RestControllerAdvice(basePackageClasses = [APIExceptionController::class])
-class APIExceptionController {
+@RestControllerAdvice(basePackageClasses = [ApiExceptionController::class])
+class ApiExceptionController {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
