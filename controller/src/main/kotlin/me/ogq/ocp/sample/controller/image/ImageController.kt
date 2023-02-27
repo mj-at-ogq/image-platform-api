@@ -30,7 +30,16 @@ class ImageController(
     @Operation(summary = "Image Meta Data 등록 API")
     @PostMapping
     fun register(@Valid @RequestBody req: RegisterImageReq): RegisterImageDto {
-        return registerImageService.register(RegisterImageCommand(req.title, req.description, req.imagePath))
+        return registerImageService.register(
+            RegisterImageCommand(
+                title = req.title,
+                description = req.description,
+                filePath = req.imagePath,
+                creatorId = req.creatorId.toLong(),
+                publicityId = req.publicityId.toLong(),
+                tags = req.tags
+            )
+        )
     }
 
     @Operation(summary = "Image 상세 조회 API")
