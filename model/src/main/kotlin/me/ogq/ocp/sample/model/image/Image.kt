@@ -19,7 +19,7 @@ import javax.persistence.Id
 import kotlin.jvm.Transient
 
 @Entity
-data class Image(
+class Image(
     val title: String,
     val description: String?,
     @Convert(converter = TagStringSetConverter::class)
@@ -33,11 +33,23 @@ data class Image(
     @Id
     val id: String = UUID.randomUUID().toString()
 ) {
-    constructor(title: String, description: String?, file: ImageFile) :
-        this(
-            title = title, description = description, file = file,
-            tags = emptySet(), publicityRightId = null, authorId = null
-        )
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Image
+
+        return id == other.id
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
+    }
+
+    override fun toString(): String {
+        return "Image(id='$id', title='$title')"
+    }
 }
 
 @Embeddable
