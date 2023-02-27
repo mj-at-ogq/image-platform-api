@@ -1,6 +1,5 @@
 rootProject.name = "image-platform-api"
 
-
 include("app")
 include("controller")
 include("gateway")

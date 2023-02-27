@@ -24,6 +24,9 @@ spring:
       minimum-idle: 0
       maximum-pool-size: 5
       validation-timeout: 5000
+    resources:
+      static-locations: file:${const.file-path}
+
 
   jpa:
     show-sql: false
@@ -44,3 +47,6 @@ spring:
 logging:
   level:
     ROOT: INFO
+
+const:
+  file-path: /Users/mj/IdeaProjects/image-platform-api/static

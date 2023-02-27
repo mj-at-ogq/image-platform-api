@@ -1,0 +1,14 @@
+POST {{host}}/images
+Content-Type: application/json
+
+{
+    "title": "제목",
+    "description": "본문",
+    "creatorId": "12312",
+    "tags": ["tag1", "tag2", "tag3"],
+    "imagePath": "/Users/mj/IdeaProjects/image-platform-api/static/badge_earlybird_210.png",
+    "publicityId": "11111"
+}
+
+###
+GET {{host}}/images/3163e51f-e352-4ed9-9e60-f2008bc0bca9
