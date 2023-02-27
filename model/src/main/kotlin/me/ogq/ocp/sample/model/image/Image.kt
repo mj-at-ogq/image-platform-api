@@ -2,6 +2,7 @@ package me.ogq.ocp.sample.model.image
 
 import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
+import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -33,6 +34,15 @@ class Image(
     @Id
     val id: String = UUID.randomUUID().toString()
 ) {
+    private val httpHost = "http://localhost:8080/"
+    fun generateUrl(): String {
+        fun extractNameFrom(file: ImageFile): String {
+            return File(file.path.toString()).name
+        }
+
+        val fileName = extractNameFrom(file)
+        return "$httpHost$fileName"
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

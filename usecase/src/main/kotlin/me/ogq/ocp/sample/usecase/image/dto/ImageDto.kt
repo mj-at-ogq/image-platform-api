@@ -3,6 +3,10 @@ package me.ogq.ocp.sample.usecase.image.dto
 class ImageDto(
     val imageId: String,
     val title: String,
-    val content: String?,
-    val imagePath: String
+    val description: String?,
+    val imagePath: String,
+    val publicityId: String,
+    val imageUrl: String,
+    val creatorId: String,
+    val tags: Set<String>
 )

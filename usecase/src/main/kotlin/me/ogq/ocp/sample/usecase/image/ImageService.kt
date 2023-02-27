@@ -8,6 +8,7 @@ import me.ogq.ocp.sample.usecase.image.dto.ImageDto
 import me.ogq.ocp.sample.usecase.image.dto.ImageDtoAssembler
 import me.ogq.ocp.sample.usecase.image.dto.UploadImageDto
 import me.ogq.ocp.sample.usecase.image.exception.NotExistImageException
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.io.IOException
@@ -17,6 +18,8 @@ import java.nio.file.Paths
 class ImageService(
     private val imageRepository: ImageRepository
 ) {
+    @Value("\${const.file-path}")
+    lateinit var staticFilePath: String
     @Transactional(readOnly = true)
     fun get(cmd: GetDetailImageCommand): ImageDto {
         val image = imageRepository.get(cmd.imageId) ?: throw NotExistImageException(cmd.imageId)
@@ -25,7 +28,7 @@ class ImageService(
 
     @Transactional
     fun upload(cmd: UploadImageCommand): UploadImageDto {
-        val destination = Paths.get("/Users/mj/Documents/ogq/images")
+        val destination = Paths.get(staticFilePath)
         val imageFile = ImageFile(source = cmd.file, path = null)
 
         try {
