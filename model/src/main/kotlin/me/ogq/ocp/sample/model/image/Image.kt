@@ -4,14 +4,17 @@ import org.springframework.stereotype.Component
 import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.util.UUID
 import javax.persistence.AttributeConverter
 import javax.persistence.Column
 import javax.persistence.Convert
 import javax.persistence.Converter
 import javax.persistence.Embedded
 import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.TableGenerator
+import kotlin.jvm.Transient
 
 @Entity
 class Image(
@@ -24,10 +27,13 @@ class Image(
     @Column(name = "author_id")
     val authorId: Long?,
     @Embedded
-    val file: ImageFile,
-    @Id
-    val id: String = UUID.randomUUID().toString()
+    val file: ImageFile
 ) {
+    @Id
+    @TableGenerator(name = "customIdGenerator", table = "sequence", allocationSize = 100)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "customIdGenerator")
+    var id: Long? = null
+    @Transient
     private val httpHost = "http://localhost:8080/"
     fun generateUrl(): String {
         fun extractNameFrom(file: ImageFile): String {

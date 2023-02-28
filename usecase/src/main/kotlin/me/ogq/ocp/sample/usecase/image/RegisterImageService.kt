@@ -25,6 +25,7 @@ class RegisterImageService(
             )
         )
 
-        return RegisterImageDto(image.id)
+        requireNotNull(image.id) { "image.id should be not null" }
+        return RegisterImageDto(image.id!!)
     }
 }

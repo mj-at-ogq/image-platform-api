@@ -22,7 +22,7 @@ class ImageService(
     lateinit var staticFilePath: String
     @Transactional(readOnly = true)
     fun get(cmd: GetDetailImageCommand): ImageDto {
-        val image = imageRepository.get(cmd.imageId) ?: throw NotExistImageException(cmd.imageId)
+        val image = imageRepository.get(cmd.imageId) ?: throw NotExistImageException(cmd.imageId.toString())
         return ImageDtoAssembler.toDTO(image)
     }
 

@@ -45,7 +45,7 @@ class ImageController(
     @Operation(summary = "Image 상세 조회 API")
     @GetMapping("{imageId}")
     fun get(
-        @PathVariable("imageId") imageId: String
+        @PathVariable("imageId") imageId: Long
     ): ImageDto {
         return imageService.get(GetDetailImageCommand(imageId))
     }

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.Query
 
 interface ImageJpaAdapter : JpaRepository<Image, Long> {
     @Query("SELECT b FROM Image AS b WHERE b.id = ?1")
-    fun get(imageId: String): Image?
+    fun get(imageId: Long): Image?
 }

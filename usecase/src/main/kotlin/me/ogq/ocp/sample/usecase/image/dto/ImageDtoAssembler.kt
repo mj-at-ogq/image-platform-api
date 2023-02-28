@@ -4,8 +4,10 @@ import me.ogq.ocp.sample.model.image.Image
 
 object ImageDtoAssembler {
     fun toDTO(image: Image): ImageDto {
+        requireNotNull(image.id) { "image.id should be not null" }
+
         return ImageDto(
-            imageId = image.id,
+            imageId = image.id!!,
             title = image.title,
             description = image.description,
             creatorId = image.authorId.toString(),
