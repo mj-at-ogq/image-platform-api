@@ -12,4 +12,5 @@ jar.archiveClassifier.convention("") // spring boot 2.5 부터 일반 jar 은 -p
 
 dependencies {
     implementation(project(":model"))
+    implementation("org.elasticsearch.client:elasticsearch-rest-high-level-client")
 }
