@@ -8,5 +8,5 @@ class MarketRepositoryJpaImpl(
     private val marketJpaAdapter: MarketJpaAdapter
 ) : MarketRepository {
     override fun findAllIn(marketIds: Set<String>) = marketJpaAdapter.getAllIn(marketIds)
-    override fun findAllBy(marketId: String) = marketJpaAdapter.getAllBy(marketId)
+    override fun findBy(marketId: String) = marketJpaAdapter.getBy(marketId)
 }

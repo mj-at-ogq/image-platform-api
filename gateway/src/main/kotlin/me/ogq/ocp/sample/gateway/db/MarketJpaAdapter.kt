@@ -9,5 +9,5 @@ interface MarketJpaAdapter : JpaRepository<Market, String> {
     fun getAllIn(marketIds: Set<String>): Set<Market>
 
     @Query("SELECT m FROM Market AS m WHERE m.id = ?1")
-    fun getAllBy(marketId: String): Set<Market>
+    fun getBy(marketId: String): Market?
 }
