@@ -12,3 +12,16 @@ Content-Type: application/json
 
 ###
 GET {{host}}/images/102
+
+###
+POST {{host}}/publicities
+Content-Type: application/json
+
+{
+  "publicityId": "11111",
+  "salesMarkets": ["DDDD", "BBBB"]
+}
+
+###
+GET {{host}}/publicities/11111
+
