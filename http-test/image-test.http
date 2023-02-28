@@ -14,6 +14,9 @@ Content-Type: application/json
 GET {{host}}/images/102
 
 ###
+GET {{host}}/images/search?marketId=BBBB&query=제목
+
+###
 POST {{host}}/publicities
 Content-Type: application/json
 
@@ -24,4 +27,3 @@ Content-Type: application/json
 
 ###
 GET {{host}}/publicities/11111
-
