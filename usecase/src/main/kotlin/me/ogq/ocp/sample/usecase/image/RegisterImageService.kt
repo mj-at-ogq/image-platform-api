@@ -1,18 +1,19 @@
 package me.ogq.ocp.sample.usecase.image
 
-import me.ogq.ocp.sample.model.SearchEngine
+import me.ogq.ocp.sample.model.ImageRegistered
 import me.ogq.ocp.sample.model.image.ImageFactory
 import me.ogq.ocp.sample.model.image.ImageRepository
 import me.ogq.ocp.sample.usecase.image.command.RegisterImageCommand
 import me.ogq.ocp.sample.usecase.image.dto.RegisterImageDto
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class RegisterImageService(
-    private val searchEngine: SearchEngine,
     private val imageRepository: ImageRepository,
-    private val imageFactory: ImageFactory
+    private val imageFactory: ImageFactory,
+    private val eventPublisher: ApplicationEventPublisher
 ) {
     @Transactional
     fun register(cmd: RegisterImageCommand): RegisterImageDto {
@@ -27,9 +28,10 @@ class RegisterImageService(
             )
         )
 
-        searchEngine.save(image)
-
         requireNotNull(image.id) { "image.id should be not null" }
+
+        eventPublisher.publishEvent(ImageRegistered(image))
+
         return RegisterImageDto(image.id!!)
     }
 }
