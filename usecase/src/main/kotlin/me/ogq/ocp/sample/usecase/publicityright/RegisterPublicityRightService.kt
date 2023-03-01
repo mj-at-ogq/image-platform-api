@@ -7,7 +7,6 @@ import me.ogq.ocp.sample.usecase.publicityright.command.RegisterPublicityRightCo
 import me.ogq.ocp.sample.usecase.publicityright.dto.RegisterPublicityRightDto
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.NoSuchElementException
 
 @Service
 class RegisterPublicityRightService(
@@ -25,13 +24,10 @@ class RegisterPublicityRightService(
             publicityRightRepository.save(publicityRight)
         }
 
-        val publicityRight = publicityRightRepository.findBy(cmd.publicityId)
-            ?: throw NoSuchElementException(cmd.publicityId.toString())
-
-        requireNotNull(publicityRight.id) { "publicityRight.id should not be null" }
+        val publicityRight = PublicityRight(cmd.publicityId, mutableSetOf())
 
         updateMarkets(publicityRight, cmd.salesMarketIds)
 
-        return RegisterPublicityRightDto(publicityRight.id!!)
+        return RegisterPublicityRightDto(publicityRight.id)
     }
 }

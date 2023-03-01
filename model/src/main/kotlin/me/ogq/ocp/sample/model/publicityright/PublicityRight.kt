@@ -3,18 +3,13 @@ package me.ogq.ocp.sample.model.publicityright
 import me.ogq.ocp.sample.model.image.Image
 import javax.persistence.CascadeType
 import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.OneToMany
-import javax.persistence.TableGenerator
 
 @Entity
 class PublicityRight(
     @Id
-    @TableGenerator(name = "customIdGenerator", table = "sequence", allocationSize = 100)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "customIdGenerator")
-    var id: Long? = null,
+    var id: Long,
     @OneToMany(mappedBy = "publicityRight", cascade = [CascadeType.ALL])
     val salesMarkets: MutableSet<Market> = mutableSetOf()
 ) {
