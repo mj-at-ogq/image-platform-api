@@ -13,6 +13,7 @@ import org.elasticsearch.action.search.SearchRequest
 import org.elasticsearch.action.search.SearchResponse
 import org.elasticsearch.client.RequestOptions
 import org.elasticsearch.client.RestHighLevelClient
+import org.elasticsearch.index.query.Operator
 import org.elasticsearch.index.query.QueryBuilders
 import org.elasticsearch.search.builder.SearchSourceBuilder
 import org.springframework.beans.factory.annotation.Value
@@ -49,10 +50,19 @@ class SearchEngineImpl(
     override fun searchWith(market: Market, query: String): List<ImageData> {
         fun generateSearchRequest(publicityRight: PublicityRight?, query: String): SearchRequest {
             val queryBuilder = QueryBuilders.boolQuery()
-                .must(QueryBuilders.matchQuery("title", query))
+
+            queryBuilder.must(
+                QueryBuilders.queryStringQuery("*$query*")
+                    .field("title")
+                    .field("tags")
+                    .lenient(true)
+                    .defaultOperator(Operator.OR)
+            )
 
             if (publicityRight != null) {
-                queryBuilder.filter(QueryBuilders.termQuery("publicity_id", publicityRight.id.toString()))
+                queryBuilder.should(QueryBuilders.termQuery("publicity_id", publicityRight.id.toString()))
+            } else {
+                queryBuilder.should(QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery("publicity_id")))
             }
 
             val sourceBuilder = SearchSourceBuilder()
@@ -72,8 +82,8 @@ class SearchEngineImpl(
                 val description = sourceMap["description"] as String?
                 val tags = tagConverter.convertToEntityAttribute(sourceMap["tags"] as String)
                 val creatorId = sourceMap["creator_id"]?.toString()?.toLong()
-                val publicityRightId = sourceMap["publicity_id"]?.toString()?.toLong()
                 val imagePath = sourceMap["imagePath"] as String
+                val publicityRightId = if (sourceMap["publicity_id"] == "null") null else sourceMap["publicity_id"]?.toString()?.toLong()
 
                 val image = ImageData(
                     id = id,
