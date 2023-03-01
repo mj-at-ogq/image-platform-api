@@ -1,3 +1,54 @@
+###
+POST {{host}}/publicities
+Content-Type: application/json
+
+{
+  "publicityId": "11111",
+  "salesMarkets": ["AAAA", "BBBB"]
+}
+
+###
+POST {{host}}/publicities
+Content-Type: application/json
+
+{
+  "publicityId": "22222",
+  "salesMarkets": ["CCCC"]
+}
+
+###
+GET {{host}}/publicities/11111
+
+###
+GET {{host}}/publicities/22222
+
+###
+POST {{host}}/images
+Content-Type: application/json
+
+{
+    "title": "제목",
+    "description": "테스트2",
+    "creatorId": "1234",
+    "tags": ["tag1", "tag2", "태그"],
+    "imagePath": "/Users/mj/IdeaProjects/image-platform-api/static/badge_earlybird_210.png",
+    "publicityId": "33333"
+}
+
+###
+POST {{host}}/images
+Content-Type: application/json
+
+{
+    "title": "제목",
+    "description": "본문",
+    "creatorId": "12312",
+    "tags": ["tag1", "태그", "tag3"],
+    "imagePath": "/Users/mj/IdeaProjects/image-platform-api/static/badge_earlybird_210.png",
+    "publicityId": "11111"
+}
+
+###
 POST {{host}}/images
 Content-Type: application/json
 
@@ -7,8 +58,17 @@ Content-Type: application/json
     "creatorId": "12312",
     "tags": ["tag1", "tag2", "tag3"],
     "imagePath": "/Users/mj/IdeaProjects/image-platform-api/static/badge_earlybird_210.png",
-    "publicityId": "11111"
+    "publicityId": null
 }
 
 ###
-GET {{host}}/images/3163e51f-e352-4ed9-9e60-f2008bc0bca9
+GET {{host}}/images/2
+
+###
+GET {{host}}/images/search?marketId=BBBB&query=제목
+
+###
+GET {{host}}/images/search?marketId=AAAA&query=태그
+
+###
+GET {{host}}/images/search?marketId=EEEE&query=태그

@@ -11,7 +11,7 @@ class ImageFactory(
         description: String?,
         filePath: String,
         creatorId: Long,
-        publicityId: Long,
+        publicityId: Long?,
         tags: Set<String>
     ): Image {
         val filePathInPath = pathConverter.convertToEntityAttribute(filePath)

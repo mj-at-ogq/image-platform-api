@@ -26,8 +26,6 @@ spring:
       validation-timeout: 5000
     resources:
       static-locations: file:${const.file-path}
-
-
   jpa:
     show-sql: false
     generate-ddl: false
@@ -43,6 +41,14 @@ spring:
         order_updates: true
         jdbc:
           batch_size: 100
+  elasticsearch:
+    index: images
+    uris: http://localhost:9200
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 logging:
   level:

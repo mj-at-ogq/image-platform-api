@@ -1,18 +1,47 @@
 package me.ogq.ocp.sample.usecase.image.dto
 
 import me.ogq.ocp.sample.model.image.Image
+import me.ogq.ocp.sample.model.image.ImageData
+import java.io.File
 
 object ImageDtoAssembler {
     fun toDTO(image: Image): ImageDto {
+        requireNotNull(image.id) { "image.id should not be null" }
+
         return ImageDto(
-            imageId = image.id,
+            id = image.id!!,
             title = image.title,
             description = image.description,
             creatorId = image.authorId.toString(),
             tags = image.tags,
             imagePath = image.file.path.toString(),
             publicityId = image.publicityRightId.toString(),
-            imageUrl = image.generateUrl(),
+            imageUrl = generateUrl(image.file.path.toString()),
         )
+    }
+
+    fun toDTO(image: ImageData): ImageDto {
+        requireNotNull(image.id) { "image.id should not be null" }
+
+        return ImageDto(
+            id = image.id!!,
+            title = image.title,
+            description = image.description,
+            creatorId = image.authorId.toString(),
+            tags = image.tags,
+            imagePath = image.imagePath,
+            publicityId = image.publicityRightId.toString(),
+            imageUrl = generateUrl(image.imagePath)
+        )
+    }
+
+    private val httpHost = "http://localhost:8080/"
+    private fun generateUrl(filePath: String): String {
+        fun extractNameFrom(filePath: String): String {
+            return File(filePath).name
+        }
+
+        val fileName = extractNameFrom(filePath)
+        return "$httpHost$fileName"
     }
 }

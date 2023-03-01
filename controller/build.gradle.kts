@@ -15,6 +15,7 @@ val ocpMvcUtilsVer = "0.3.5"
 
 dependencies {
     implementation(project(":usecase"))
+    implementation(project(":model"))
     implementation("org.springdoc:springdoc-openapi-ui:$openapiVer")
     implementation("org.springdoc:springdoc-openapi-kotlin:$openapiVer")
     implementation("me.ogq.ocp.common:ocp-spring-mvc-utils:$ocpMvcUtilsVer")

@@ -11,5 +11,5 @@ data class RegisterImageReq(
     val creatorId: String,
     val tags: Set<String>,
     val imagePath: String,
-    val publicityId: String
+    val publicityId: String?
 )
