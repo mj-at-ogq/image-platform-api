@@ -6,5 +6,5 @@ data class RegisterImageCommand(
     val creatorId: Long,
     val tags: Set<String>,
     val filePath: String,
-    val publicityId: Long
+    val publicityId: Long?
 )

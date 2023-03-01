@@ -46,7 +46,7 @@ class ImageController(
                 description = req.description,
                 filePath = req.imagePath,
                 creatorId = req.creatorId.toLong(),
-                publicityId = req.publicityId.toLong(),
+                publicityId = req.publicityId?.toLong(),
                 tags = req.tags
             )
         )
