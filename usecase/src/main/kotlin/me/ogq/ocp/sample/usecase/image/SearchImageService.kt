@@ -19,13 +19,11 @@ class SearchImageService(
         val market = marketRepository.findBy(cmd.marketId)
             ?: throw NoSuchElementException(cmd.marketId)
 
-        val offset = cmd.page * cmd.pageSize
-
-        // TODO: lazy loading 방식으로 리팩토링
-        val images = searchEngine.searchWith(market, cmd.query, 0, 100)
+        val images = searchEngine.searchWith(market, cmd.query, cmd.page, cmd.pageSize)
             .map { image -> imageDtoAssembler.toDto(image) }
             .toList()
 
+        val offset = cmd.page * cmd.pageSize
         return SliceDto(
             hasNext = images.drop(offset).size > cmd.pageSize,
             elements = images.drop(offset).take(cmd.pageSize)
