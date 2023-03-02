@@ -16,14 +16,15 @@ import java.nio.file.Paths
 
 @Service
 class ImageService(
-    private val imageRepository: ImageRepository
+    private val imageRepository: ImageRepository,
+    private val imageDtoAssembler: ImageDtoAssembler
 ) {
     @Value("\${const.file-path}")
     lateinit var staticFilePath: String
     @Transactional(readOnly = true)
     fun get(cmd: GetDetailImageCommand): ImageDto {
         val image = imageRepository.findBy(cmd.imageId) ?: throw NotExistImageException(cmd.imageId.toString())
-        return ImageDtoAssembler.toDto(image)
+        return imageDtoAssembler.toDto(image)
     }
 
     @Transactional

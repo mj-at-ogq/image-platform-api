@@ -12,7 +12,8 @@ import java.util.NoSuchElementException
 @Service
 class SearchImageService(
     private val searchEngine: SearchEngine,
-    private val marketRepository: MarketRepository
+    private val marketRepository: MarketRepository,
+    private val imageDtoAssembler: ImageDtoAssembler
 ) {
     fun search(cmd: SearchImageCommand): SliceDto<ImageDto> {
         val market = marketRepository.findBy(cmd.marketId)
@@ -22,7 +23,7 @@ class SearchImageService(
 
         // TODO: lazy loading 방식으로 리팩토링
         val images = searchEngine.searchWith(market, cmd.query, 0, 100)
-            .map { image -> ImageDtoAssembler.toDto(image) }
+            .map { image -> imageDtoAssembler.toDto(image) }
             .toList()
 
         return SliceDto(

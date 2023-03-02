@@ -14,7 +14,8 @@ import org.springframework.transaction.annotation.Transactional
 class RegisterImageService(
     private val imageRepository: ImageRepository,
     private val imageFactory: ImageFactory,
-    private val eventPublisher: ApplicationEventPublisher
+    private val eventPublisher: ApplicationEventPublisher,
+    private val imageDtoAssembler: ImageDtoAssembler
 ) {
     @Transactional
     fun register(cmd: RegisterImageCommand): RegisterImageDto {
@@ -31,7 +32,7 @@ class RegisterImageService(
 
         requireNotNull(imageSaved.id) { "image.id should be not null" }
 
-        val imageEventData = ImageDtoAssembler.toEventData(imageSaved)
+        val imageEventData = imageDtoAssembler.toEventData(imageSaved)
 
         eventPublisher.publishEvent(ImageRegistered(imageEventData))
 

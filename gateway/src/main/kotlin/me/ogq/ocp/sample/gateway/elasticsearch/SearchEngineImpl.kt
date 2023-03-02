@@ -4,7 +4,7 @@ package me.ogq.ocp.sample.gateway.elasticsearch
 
 import me.ogq.ocp.sample.model.elasticsearch.SearchEngine
 import me.ogq.ocp.sample.model.event.ImageEventData
-import me.ogq.ocp.sample.model.image.TagStringSetConverter
+import me.ogq.ocp.sample.model.image.StringSetConverter
 import me.ogq.ocp.sample.model.publicityright.Market
 import me.ogq.ocp.sample.model.publicityright.PublicityRight
 import org.elasticsearch.action.index.IndexRequest
@@ -23,7 +23,7 @@ class SearchEngineImpl(
     @Value("\${spring.elasticsearch.index}")
     private val indexName: String,
     private val client: RestHighLevelClient,
-    private val tagConverter: TagStringSetConverter
+    private val tagConverter: StringSetConverter
 ) : SearchEngine {
     override fun save(image: ImageEventData) {
         val indexRequest = createIndexRequest(image)
