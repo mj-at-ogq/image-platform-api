@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package me.ogq.ocp.sample.gateway.elasticsearch
 
 import me.ogq.ocp.sample.model.event.ImageEventData
@@ -44,7 +42,7 @@ class EsParser(
         val tags = tagConverter.convertToEntityAttribute(sourceMap["tags"] as String)
         val creatorId = sourceMap["creator_id"]?.toString()?.toLong()
         val imagePath = sourceMap["imagePath"] as String
-        val publicityRightId =sourceMap["publicity_id"]?.toString()?.toLongOrNull()
+        val publicityRightId = sourceMap["publicity_id"]?.toString()?.toLongOrNull()
 
         return ImageEventData(
             id = id ?: throw IllegalArgumentException("id should not be null"),

@@ -2,7 +2,7 @@ package me.ogq.ocp.sample.controller.image
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
-import me.ogq.ocp.sample.usecase.common.SliceDto
+import me.ogq.ocp.sample.model.common.SliceDto
 import me.ogq.ocp.sample.usecase.image.ImageService
 import me.ogq.ocp.sample.usecase.image.RegisterImageService
 import me.ogq.ocp.sample.usecase.image.SearchImageService

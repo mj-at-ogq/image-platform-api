@@ -1,4 +1,4 @@
-package me.ogq.ocp.sample.usecase.common
+package me.ogq.ocp.sample.model.common
 
 data class SliceDto<T>(
     val hasNext: Boolean,
