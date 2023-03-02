@@ -1,6 +1,6 @@
 package me.ogq.ocp.sample.usecase.image
 
-import me.ogq.ocp.sample.model.ImageRegistered
+import me.ogq.ocp.sample.model.event.ImageRegistered
 import me.ogq.ocp.sample.model.image.ImageFactory
 import me.ogq.ocp.sample.model.image.ImageRepository
 import me.ogq.ocp.sample.usecase.image.command.RegisterImageCommand

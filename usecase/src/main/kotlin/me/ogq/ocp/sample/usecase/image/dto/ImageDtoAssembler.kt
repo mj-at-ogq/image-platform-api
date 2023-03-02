@@ -1,7 +1,7 @@
 package me.ogq.ocp.sample.usecase.image.dto
 
+import me.ogq.ocp.sample.model.event.ImageData
 import me.ogq.ocp.sample.model.image.Image
-import me.ogq.ocp.sample.model.image.ImageData
 import java.io.File
 
 object ImageDtoAssembler {

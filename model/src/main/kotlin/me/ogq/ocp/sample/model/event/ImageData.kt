@@ -1,4 +1,4 @@
-package me.ogq.ocp.sample.model.image
+package me.ogq.ocp.sample.model.event
 
 data class ImageData(
     val id: Long?,

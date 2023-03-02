@@ -1,4 +1,4 @@
-package me.ogq.ocp.sample.model
+package me.ogq.ocp.sample.model.event
 
 import me.ogq.ocp.sample.model.image.Image
 import org.springframework.context.ApplicationEvent

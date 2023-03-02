@@ -1,6 +1,6 @@
 package me.ogq.ocp.sample.usecase.image
 
-import me.ogq.ocp.sample.model.SearchEngine
+import me.ogq.ocp.sample.model.elasticsearch.SearchEngine
 import me.ogq.ocp.sample.model.publicityright.MarketRepository
 import me.ogq.ocp.sample.usecase.common.SliceDto
 import me.ogq.ocp.sample.usecase.image.command.SearchImageCommand

@@ -1,7 +1,7 @@
-package me.ogq.ocp.sample.model
+package me.ogq.ocp.sample.model.elasticsearch
 
+import me.ogq.ocp.sample.model.event.ImageData
 import me.ogq.ocp.sample.model.image.Image
-import me.ogq.ocp.sample.model.image.ImageData
 import me.ogq.ocp.sample.model.publicityright.Market
 
 interface SearchEngine {
