@@ -1,6 +1,6 @@
 package me.ogq.ocp.sample.model.event
 
-data class ImageData(
+data class ImageEventData(
     val id: Long?,
     val title: String,
     val description: String?,

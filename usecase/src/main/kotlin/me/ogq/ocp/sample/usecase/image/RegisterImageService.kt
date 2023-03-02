@@ -4,6 +4,7 @@ import me.ogq.ocp.sample.model.event.ImageRegistered
 import me.ogq.ocp.sample.model.image.ImageFactory
 import me.ogq.ocp.sample.model.image.ImageRepository
 import me.ogq.ocp.sample.usecase.image.command.RegisterImageCommand
+import me.ogq.ocp.sample.usecase.image.dto.ImageDtoAssembler
 import me.ogq.ocp.sample.usecase.image.dto.RegisterImageDto
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
@@ -30,8 +31,10 @@ class RegisterImageService(
 
         requireNotNull(imageSaved.id) { "image.id should be not null" }
 
-        eventPublisher.publishEvent(ImageRegistered(imageSaved))
+        val imageEventData = ImageDtoAssembler.toEventData(imageSaved)
 
-        return RegisterImageDto(imageSaved.id!!)
+        eventPublisher.publishEvent(ImageRegistered(imageEventData))
+
+        return RegisterImageDto(imageEventData.id!!)
     }
 }

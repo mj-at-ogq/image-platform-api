@@ -3,8 +3,7 @@
 package me.ogq.ocp.sample.gateway.elasticsearch
 
 import me.ogq.ocp.sample.model.elasticsearch.SearchEngine
-import me.ogq.ocp.sample.model.event.ImageData
-import me.ogq.ocp.sample.model.image.Image
+import me.ogq.ocp.sample.model.event.ImageEventData
 import me.ogq.ocp.sample.model.image.TagStringSetConverter
 import me.ogq.ocp.sample.model.publicityright.Market
 import me.ogq.ocp.sample.model.publicityright.PublicityRight
@@ -26,13 +25,13 @@ class SearchEngineImpl(
     private val client: RestHighLevelClient,
     private val tagConverter: TagStringSetConverter
 ) : SearchEngine {
-    override fun save(image: Image) {
+    override fun save(image: ImageEventData) {
         val indexRequest = createIndexRequest(image)
 
         client.index(indexRequest, RequestOptions.DEFAULT)
     }
 
-    override fun searchWith(market: Market, query: String, page: Int, pageSize: Int): List<ImageData> {
+    override fun searchWith(market: Market, query: String, page: Int, pageSize: Int): List<ImageEventData> {
         val searchRequest = createSearchRequest(market.publicityRight, query, page, pageSize)
 
         val searchResponse = client.search(searchRequest, RequestOptions.DEFAULT)
@@ -40,12 +39,12 @@ class SearchEngineImpl(
         return parseImageListFrom(searchResponse)
     }
 
-    private fun createIndexRequest(image: Image): IndexRequest {
+    private fun createIndexRequest(image: ImageEventData): IndexRequest {
         val doc: Map<String, Any?> = mapOf(
             "image_id" to image.id.toString(),
             "title" to image.title,
             "description" to image.description,
-            "imagePath" to image.file.path.toString(),
+            "imagePath" to image.imagePath,
             "tags" to tagConverter.convertToDatabaseColumn(image.tags),
             "creator_id" to image.authorId.toString(),
             "publicity_id" to image.publicityRightId.toString(),
@@ -79,9 +78,9 @@ class SearchEngineImpl(
         return SearchRequest(indexName).source(sourceBuilder)
     }
 
-    private fun parseImageListFrom(searchResponse: SearchResponse): List<ImageData> {
+    private fun parseImageListFrom(searchResponse: SearchResponse): List<ImageEventData> {
         val hits = searchResponse.hits.hits
-        val images = mutableListOf<ImageData>()
+        val images = mutableListOf<ImageEventData>()
 
         for (hit in hits) {
             val sourceMap = hit.sourceAsMap
@@ -94,7 +93,7 @@ class SearchEngineImpl(
             val publicityRightId =
                 if (sourceMap["publicity_id"] == "null") null else sourceMap["publicity_id"]?.toString()?.toLong()
 
-            val image = ImageData(
+            val image = ImageEventData(
                 id = id,
                 title = title,
                 description = description,
