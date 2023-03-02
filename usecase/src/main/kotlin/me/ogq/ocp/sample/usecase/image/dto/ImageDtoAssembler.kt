@@ -5,7 +5,7 @@ import me.ogq.ocp.sample.model.image.Image
 import java.io.File
 
 object ImageDtoAssembler {
-    fun toDTO(image: Image): ImageDto {
+    fun toDto(image: Image): ImageDto {
         requireNotNull(image.id) { "image.id should not be null" }
 
         return ImageDto(
@@ -20,7 +20,7 @@ object ImageDtoAssembler {
         )
     }
 
-    fun toDTO(image: ImageData): ImageDto {
+    fun toDto(image: ImageData): ImageDto {
         requireNotNull(image.id) { "image.id should not be null" }
 
         return ImageDto(

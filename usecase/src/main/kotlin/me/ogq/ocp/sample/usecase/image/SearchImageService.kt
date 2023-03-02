@@ -22,7 +22,7 @@ class SearchImageService(
 
         // TODO: lazy loading 방식으로 리팩토링
         val images = searchEngine.searchWith(market, cmd.query, 0, 100)
-            .map { image -> ImageDtoAssembler.toDTO(image) }
+            .map { image -> ImageDtoAssembler.toDto(image) }
             .toList()
 
         return SliceDto(

@@ -23,7 +23,7 @@ class ImageService(
     @Transactional(readOnly = true)
     fun get(cmd: GetDetailImageCommand): ImageDto {
         val image = imageRepository.findBy(cmd.imageId) ?: throw NotExistImageException(cmd.imageId.toString())
-        return ImageDtoAssembler.toDTO(image)
+        return ImageDtoAssembler.toDto(image)
     }
 
     @Transactional
