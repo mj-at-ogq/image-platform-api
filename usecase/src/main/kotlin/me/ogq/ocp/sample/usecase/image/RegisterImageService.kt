@@ -17,21 +17,21 @@ class RegisterImageService(
 ) {
     @Transactional
     fun register(cmd: RegisterImageCommand): RegisterImageDto {
-        val image = imageRepository.save(
-            imageFactory.create(
-                title = cmd.title,
-                description = cmd.description,
-                filePath = cmd.filePath,
-                creatorId = cmd.creatorId,
-                publicityId = cmd.publicityId,
-                tags = cmd.tags
-            )
+        val image = imageFactory.create(
+            title = cmd.title,
+            description = cmd.description,
+            filePath = cmd.filePath,
+            creatorId = cmd.creatorId,
+            publicityId = cmd.publicityId,
+            tags = cmd.tags
         )
 
-        requireNotNull(image.id) { "image.id should be not null" }
+        val imageSaved = imageRepository.save(image)
 
-        eventPublisher.publishEvent(ImageRegistered(image))
+        requireNotNull(imageSaved.id) { "image.id should be not null" }
 
-        return RegisterImageDto(image.id!!)
+        eventPublisher.publishEvent(ImageRegistered(imageSaved))
+
+        return RegisterImageDto(imageSaved.id!!)
     }
 }
