@@ -21,9 +21,9 @@ import org.springframework.stereotype.Component
 
 @Component
 class SearchEngineImpl(
-    private val client: RestHighLevelClient,
     @Value("\${spring.elasticsearch.index}")
     private val indexName: String,
+    private val client: RestHighLevelClient,
     private val tagConverter: TagStringSetConverter
 ) : SearchEngine {
     override fun save(image: Image) {
@@ -47,7 +47,7 @@ class SearchEngineImpl(
         )
     }
 
-    override fun searchWith(market: Market, query: String): List<ImageData> {
+    override fun searchWith(market: Market, query: String, page: Int, pageSize: Int): List<ImageData> {
         fun generateSearchRequest(publicityRight: PublicityRight?, query: String): SearchRequest {
             val queryBuilder = QueryBuilders.boolQuery()
 
@@ -67,6 +67,8 @@ class SearchEngineImpl(
 
             val sourceBuilder = SearchSourceBuilder()
             sourceBuilder.query(queryBuilder)
+            sourceBuilder.from(page * pageSize)
+            sourceBuilder.size(pageSize)
 
             return SearchRequest(indexName).source(sourceBuilder)
         }

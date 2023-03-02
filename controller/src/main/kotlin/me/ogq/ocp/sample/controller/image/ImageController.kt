@@ -33,8 +33,20 @@ class ImageController(
 ) {
     @Operation(summary = "Image 검색 API")
     @GetMapping("/search")
-    fun search(@RequestParam("marketId") marketId: String, @RequestParam("query") query: String): SliceDto<ImageDto> {
-        return searchImageService.search(SearchImageCommand(marketId, query))
+    fun search(
+        @RequestParam("marketId") marketId: String,
+        @RequestParam("query") query: String,
+        @RequestParam("page") page: Int,
+        @RequestParam("pageSize") pageSize: Int
+    ): SliceDto<ImageDto> {
+        return searchImageService.search(
+            SearchImageCommand(
+                marketId = marketId,
+                query = query,
+                page = page,
+                pageSize = pageSize
+            )
+        )
     }
 
     @Operation(summary = "Image Meta Data 등록 API")
