@@ -35,9 +35,9 @@ class ImageController(
     @GetMapping("/search")
     fun search(
         @RequestParam("marketId") marketId: String,
-        @RequestParam("query") query: String,
-        @RequestParam("page") page: Int,
-        @RequestParam("pageSize") pageSize: Int
+        @RequestParam(name = "query", required = false) query: String,
+        @RequestParam(name = "page", defaultValue = "0") page: Int,
+        @RequestParam(name = "pageSize", defaultValue = "2") pageSize: Int
     ): SliceDto<ImageDto> {
         return searchImageService.search(
             SearchImageCommand(
