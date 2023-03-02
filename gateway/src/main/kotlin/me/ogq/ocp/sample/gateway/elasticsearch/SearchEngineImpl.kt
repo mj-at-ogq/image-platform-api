@@ -3,8 +3,8 @@
 package me.ogq.ocp.sample.gateway.elasticsearch
 
 import me.ogq.ocp.sample.model.elasticsearch.SearchEngine
-import me.ogq.ocp.sample.model.image.Image
 import me.ogq.ocp.sample.model.event.ImageData
+import me.ogq.ocp.sample.model.image.Image
 import me.ogq.ocp.sample.model.image.TagStringSetConverter
 import me.ogq.ocp.sample.model.publicityright.Market
 import me.ogq.ocp.sample.model.publicityright.PublicityRight

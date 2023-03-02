@@ -1,5 +1,5 @@
 package me.ogq.ocp.sample.usecase.image.dto
 
-class RegisterImageDto(
+data class RegisterImageDto(
     val imageId: Long
 )

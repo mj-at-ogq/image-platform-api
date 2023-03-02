@@ -1,6 +1,6 @@
 package me.ogq.ocp.sample.usecase.image.dto
 
-class ImageDto(
+data class ImageDto(
     val id: Long,
     val title: String,
     val description: String?,
