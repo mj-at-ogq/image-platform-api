@@ -2,7 +2,7 @@ package me.ogq.ocp.sample.controller.image
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
-import me.ogq.ocp.sample.usecase.common.SliceDto
+import me.ogq.ocp.sample.model.common.SliceDto
 import me.ogq.ocp.sample.usecase.image.ImageService
 import me.ogq.ocp.sample.usecase.image.RegisterImageService
 import me.ogq.ocp.sample.usecase.image.SearchImageService
@@ -33,8 +33,20 @@ class ImageController(
 ) {
     @Operation(summary = "Image 검색 API")
     @GetMapping("/search")
-    fun search(@RequestParam("marketId") marketId: String, @RequestParam("query") query: String): SliceDto<ImageDto> {
-        return searchImageService.search(SearchImageCommand(marketId, query))
+    fun search(
+        @RequestParam("marketId") marketId: String,
+        @RequestParam(name = "query", required = false) query: String,
+        @RequestParam(name = "page", defaultValue = "0") page: Int,
+        @RequestParam(name = "pageSize", defaultValue = "2") pageSize: Int
+    ): SliceDto<ImageDto> {
+        return searchImageService.search(
+            SearchImageCommand(
+                marketId = marketId,
+                query = query,
+                page = page,
+                pageSize = pageSize
+            )
+        )
     }
 
     @Operation(summary = "Image Meta Data 등록 API")

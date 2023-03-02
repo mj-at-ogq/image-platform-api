@@ -1,6 +1,6 @@
 package me.ogq.ocp.sample.config
 
-import me.ogq.ocp.sample.model.ImageRegistered
+import me.ogq.ocp.sample.model.event.ImageRegistered
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.serialization.StringSerializer
 import org.springframework.beans.factory.annotation.Value

@@ -56,3 +56,4 @@ logging:
 
 const:
   file-path: /Users/mj/IdeaProjects/image-platform-api/static
+  http-host: http://localhost:8080/

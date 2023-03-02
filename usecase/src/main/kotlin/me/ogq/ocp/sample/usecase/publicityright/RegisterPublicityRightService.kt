@@ -15,19 +15,19 @@ class RegisterPublicityRightService(
 ) {
     @Transactional
     fun register(cmd: RegisterPublicityRightCommand): RegisterPublicityRightDto {
-        fun updateMarkets(publicityRight: PublicityRight, salesMarketIds: Set<String>) {
-            val salesMarkets = marketRepository.findAllIn(cmd.salesMarketIds)
-            for (market in salesMarkets) {
-                market.publicityRight = publicityRight
-                publicityRight.salesMarkets.add(market)
-            }
-            publicityRightRepository.save(publicityRight)
-        }
-
         val publicityRight = PublicityRight(cmd.publicityId, mutableSetOf())
 
         updateMarkets(publicityRight, cmd.salesMarketIds)
 
         return RegisterPublicityRightDto(publicityRight.id)
+    }
+
+    private fun updateMarkets(publicityRight: PublicityRight, salesMarketIds: Set<String>) {
+        val salesMarkets = marketRepository.findAllIn(salesMarketIds)
+        for (market in salesMarkets) {
+            market.publicityRight = publicityRight
+            publicityRight.salesMarkets.add(market)
+        }
+        publicityRightRepository.save(publicityRight)
     }
 }

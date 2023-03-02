@@ -1,12 +1,7 @@
 package me.ogq.ocp.sample.model.image
 
-import org.springframework.stereotype.Component
-import java.nio.file.Path
-import java.nio.file.Paths
-import javax.persistence.AttributeConverter
 import javax.persistence.Column
 import javax.persistence.Convert
-import javax.persistence.Converter
 import javax.persistence.Embedded
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -22,7 +17,7 @@ class Image(
     var id: Long? = null,
     val title: String,
     val description: String?,
-    @Convert(converter = TagStringSetConverter::class)
+    @Convert(converter = StringSetConverter::class)
     val tags: Set<String>,
     @Column(name = "publicity_right_id")
     val publicityRightId: Long?,
@@ -46,37 +41,5 @@ class Image(
 
     override fun toString(): String {
         return "Image(id='$id', title='$title')"
-    }
-}
-
-@Converter
-@Component
-class TagStringSetConverter : AttributeConverter<Set<String>, String> {
-
-    override fun convertToDatabaseColumn(attribute: Set<String>?): String? {
-        if (attribute.isNullOrEmpty()) {
-            return null
-        }
-        return attribute.joinToString(",") { it }
-    }
-
-    override fun convertToEntityAttribute(dbData: String?): Set<String> {
-        if (dbData.isNullOrBlank()) {
-            return setOf()
-        }
-        return dbData.split(",").filter { it.isNotBlank() }.toSet()
-    }
-}
-
-@Converter
-@Component
-class PathConverter : AttributeConverter<Path, String> {
-
-    override fun convertToDatabaseColumn(attribute: Path?): String {
-        return attribute?.toString() ?: ""
-    }
-
-    override fun convertToEntityAttribute(dbData: String?): Path {
-        return Paths.get(dbData ?: "")
     }
 }

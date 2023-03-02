@@ -1,7 +1,7 @@
-package me.ogq.ocp.sample.controller.image
+package me.ogq.ocp.sample.controller.event
 
-import me.ogq.ocp.sample.model.ImageRegistered
-import me.ogq.ocp.sample.model.SearchEngine
+import me.ogq.ocp.sample.model.elasticsearch.SearchEngine
+import me.ogq.ocp.sample.model.event.ImageRegistered
 import org.springframework.context.event.EventListener
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component

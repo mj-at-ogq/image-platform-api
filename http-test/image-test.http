@@ -43,7 +43,7 @@ Content-Type: application/json
     "title": "제목",
     "description": "본문",
     "creatorId": "12312",
-    "tags": ["tag1", "태그", "tag3"],
+    "tags": ["태그2", "태그", "tag3"],
     "imagePath": "/Users/mj/IdeaProjects/image-platform-api/static/badge_earlybird_210.png",
     "publicityId": "11111"
 }
@@ -62,10 +62,10 @@ Content-Type: application/json
 }
 
 ###
-GET {{host}}/images/2
+GET {{host}}/images/1
 
 ###
-GET {{host}}/images/search?marketId=BBBB&query=제목
+GET {{host}}/images/search?marketId=BBBB&query=제목&page=1&pageSize=2
 
 ###
 GET {{host}}/images/search?marketId=AAAA&query=태그

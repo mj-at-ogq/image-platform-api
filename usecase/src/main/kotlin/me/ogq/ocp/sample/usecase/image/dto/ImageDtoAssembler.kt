@@ -1,11 +1,17 @@
 package me.ogq.ocp.sample.usecase.image.dto
 
+import me.ogq.ocp.sample.model.event.ImageEventData
 import me.ogq.ocp.sample.model.image.Image
-import me.ogq.ocp.sample.model.image.ImageData
-import java.io.File
+import me.ogq.ocp.sample.model.image.toUrl
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
 
-object ImageDtoAssembler {
-    fun toDTO(image: Image): ImageDto {
+@Component
+class ImageDtoAssembler(
+    @Value("\${const.http-host}")
+    private val httpHost: String
+) {
+    fun toDto(image: Image): ImageDto {
         requireNotNull(image.id) { "image.id should not be null" }
 
         return ImageDto(
@@ -16,11 +22,11 @@ object ImageDtoAssembler {
             tags = image.tags,
             imagePath = image.file.path.toString(),
             publicityId = image.publicityRightId.toString(),
-            imageUrl = generateUrl(image.file.path.toString()),
+            imageUrl = image.file.toUrl(httpHost)
         )
     }
 
-    fun toDTO(image: ImageData): ImageDto {
+    fun toDto(image: ImageEventData): ImageDto {
         requireNotNull(image.id) { "image.id should not be null" }
 
         return ImageDto(
@@ -31,17 +37,22 @@ object ImageDtoAssembler {
             tags = image.tags,
             imagePath = image.imagePath,
             publicityId = image.publicityRightId.toString(),
-            imageUrl = generateUrl(image.imagePath)
+            imageUrl = image.imagePath.toUrl(httpHost)
         )
     }
 
-    private val httpHost = "http://localhost:8080/"
-    private fun generateUrl(filePath: String): String {
-        fun extractNameFrom(filePath: String): String {
-            return File(filePath).name
-        }
+    fun toEventData(image: Image): ImageEventData {
+        requireNotNull(image.id) { "image.id should not be null" }
+        requireNotNull(image.authorId) { "image.authorId should not be null" }
 
-        val fileName = extractNameFrom(filePath)
-        return "$httpHost$fileName"
+        return ImageEventData(
+            id = image.id!!,
+            title = image.title,
+            description = image.description,
+            authorId = image.authorId!!,
+            tags = image.tags,
+            imagePath = image.file.path.toString(),
+            publicityRightId = image.publicityRightId
+        )
     }
 }
