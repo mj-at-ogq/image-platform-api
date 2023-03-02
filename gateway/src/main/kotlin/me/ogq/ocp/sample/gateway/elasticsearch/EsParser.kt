@@ -12,6 +12,18 @@ import org.springframework.stereotype.Component
 class EsParser(
     private val tagConverter: StringSetConverter,
 ) {
+    fun toDocumentFrom(image: ImageEventData): Map<String, Any?> {
+        return mapOf(
+            "image_id" to image.id.toString(),
+            "title" to image.title,
+            "description" to image.description,
+            "imagePath" to image.imagePath,
+            "tags" to tagConverter.convertToDatabaseColumn(image.tags),
+            "creator_id" to image.authorId.toString(),
+            "publicity_id" to image.publicityRightId.toString(),
+        )
+    }
+
     fun toImageListFrom(searchResponse: SearchResponse): List<ImageEventData> {
         val images = mutableListOf<ImageEventData>()
         val hits = searchResponse.hits.hits
@@ -32,29 +44,16 @@ class EsParser(
         val tags = tagConverter.convertToEntityAttribute(sourceMap["tags"] as String)
         val creatorId = sourceMap["creator_id"]?.toString()?.toLong()
         val imagePath = sourceMap["imagePath"] as String
-        val publicityRightId =
-            if (sourceMap["publicity_id"] == "null") null else sourceMap["publicity_id"]?.toString()?.toLong()
+        val publicityRightId =sourceMap["publicity_id"]?.toString()?.toLongOrNull()
 
         return ImageEventData(
-            id = id,
+            id = id ?: throw IllegalArgumentException("id should not be null"),
             title = title,
             description = description,
             tags = tags,
             publicityRightId = publicityRightId,
             authorId = creatorId ?: throw IllegalArgumentException("creatorId should not be null"),
             imagePath = imagePath
-        )
-    }
-
-    fun toDocumentFrom(image: ImageEventData): Map<String, Any?> {
-        return mapOf(
-            "image_id" to image.id.toString(),
-            "title" to image.title,
-            "description" to image.description,
-            "imagePath" to image.imagePath,
-            "tags" to tagConverter.convertToDatabaseColumn(image.tags),
-            "creator_id" to image.authorId.toString(),
-            "publicity_id" to image.publicityRightId.toString(),
         )
     }
 }
