@@ -23,7 +23,7 @@ class SearchEngineImpl(
     }
 
     override fun searchWith(market: Market, query: String, page: Int, pageSize: Int): List<ImageEventData> {
-        val searchRequest = searchRequest.createWith(market.publicityRight, query, page, pageSize)
+        val searchRequest = searchRequest.createWith(market, query, page, pageSize)
 
         val searchResponse = client.search(searchRequest, RequestOptions.DEFAULT)
 

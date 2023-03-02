@@ -1,5 +1,6 @@
 package me.ogq.ocp.sample.gateway.elasticsearch
 
+import me.ogq.ocp.sample.model.publicityright.Market
 import me.ogq.ocp.sample.model.publicityright.PublicityRight
 import org.elasticsearch.action.search.SearchRequest
 import org.elasticsearch.index.query.BoolQueryBuilder
@@ -15,14 +16,14 @@ class EsRequest(
     private val indexName: String,
 ) {
     fun createWith(
-        publicityRight: PublicityRight?,
+        market: Market,
         query: String,
         page: Int,
         pageSize: Int
     ): SearchRequest {
         val queryBuilder = QueryBuilders.boolQuery()
         addQueryStringTermQuery(query, queryBuilder)
-        addPublicityRightTermQuery(publicityRight, queryBuilder)
+        addPublicityRightTermQuery(market.publicityRight, queryBuilder)
 
         val sourceBuilder = SearchSourceBuilder()
         sourceBuilder.query(queryBuilder)
@@ -46,10 +47,11 @@ class EsRequest(
         publicityRight: PublicityRight?,
         queryBuilder: BoolQueryBuilder
     ) {
-        if (publicityRight != null) {
-            queryBuilder.should(QueryBuilders.termQuery("publicity_id", publicityRight.id.toString()))
-        } else {
+        if (publicityRight == null) {
             queryBuilder.should(QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery("publicity_id")))
+            return
         }
+
+        queryBuilder.should(QueryBuilders.termQuery("publicity_id", publicityRight.id.toString()))
     }
 }
