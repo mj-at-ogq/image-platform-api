@@ -1,4 +1,4 @@
-package me.ogq.ocp.sample.controller.image
+package me.ogq.ocp.sample.controller.event
 
 import me.ogq.ocp.sample.model.elasticsearch.SearchEngine
 import me.ogq.ocp.sample.model.event.ImageRegistered
