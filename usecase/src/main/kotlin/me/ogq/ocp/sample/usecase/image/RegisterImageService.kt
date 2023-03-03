@@ -30,7 +30,7 @@ class RegisterImageService(
 
         val imageSaved = imageRepository.save(image)
 
-        requireNotNull(imageSaved.id) { "image.id should be not null" }
+        requireNotNull(imageSaved.id) { "image.id should not be null" }
 
         val imageEventData = imageDtoAssembler.toEventData(imageSaved)
 
