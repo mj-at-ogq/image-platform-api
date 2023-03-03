@@ -27,23 +27,10 @@ POST {{host}}/images
 Content-Type: application/json
 
 {
-    "title": "제목",
-    "description": "테스트2",
+    "title": "제목 태그",
+    "description": "테스트",
     "creatorId": "1234",
-    "tags": ["tag1", "tag2", "태그"],
-    "imagePath": "/Users/mj/IdeaProjects/image-platform-api/static/badge_earlybird_210.png",
-    "publicityId": "33333"
-}
-
-###
-POST {{host}}/images
-Content-Type: application/json
-
-{
-    "title": "제목",
-    "description": "본문",
-    "creatorId": "12312",
-    "tags": ["태그2", "태그", "tag3"],
+    "tags": ["태그", "태그2", "태그3"],
     "imagePath": "/Users/mj/IdeaProjects/image-platform-api/static/badge_earlybird_210.png",
     "publicityId": "11111"
 }
@@ -53,22 +40,35 @@ POST {{host}}/images
 Content-Type: application/json
 
 {
+    "title": "제목 테스트",
+    "description": "본문",
+    "creatorId": "12312",
+    "tags": ["tag", "tag2", "tag3"],
+    "imagePath": "/Users/mj/IdeaProjects/image-platform-api/static/badge_earlybird_210.png",
+    "publicityId": "22222"
+}
+
+###
+POST {{host}}/images
+Content-Type: application/json
+
+{
     "title": "제목",
     "description": "본문",
     "creatorId": "12312",
-    "tags": ["tag1", "tag2", "tag3"],
+    "tags": ["널", "널2", "널3"],
     "imagePath": "/Users/mj/IdeaProjects/image-platform-api/static/badge_earlybird_210.png",
     "publicityId": null
 }
 
 ###
-GET {{host}}/images/1
+GET {{host}}/images/803
 
 ###
-GET {{host}}/images/search?marketId=BBBB&query=제목&page=1&pageSize=2
+GET {{host}}/images/search?marketId=AAAA&query=제목&page=1&pageSize=2
 
 ###
-GET {{host}}/images/search?marketId=AAAA&query=태그
+GET {{host}}/images/search?marketId=BBBB&query=제목
 
 ###
-GET {{host}}/images/search?marketId=EEEE&query=태그
+GET {{host}}/images/search?marketId=EEEE&query=제목
