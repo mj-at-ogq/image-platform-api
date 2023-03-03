@@ -47,11 +47,16 @@ class EsRequest(
         publicityRight: PublicityRight?,
         queryBuilder: BoolQueryBuilder
     ) {
+
         if (publicityRight == null) {
-            queryBuilder.should(QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery("publicity_id")))
+            queryBuilder.must(QueryBuilders.termQuery("publicity_id", "null"))
             return
         }
 
-        queryBuilder.should(QueryBuilders.termQuery("publicity_id", publicityRight.id.toString()))
+        queryBuilder.should(
+            QueryBuilders.boolQuery()
+                .should(QueryBuilders.termQuery("publicity_id", "null"))
+                .should(QueryBuilders.termQuery("publicity_id", publicityRight.id.toString()))
+        )
     }
 }
