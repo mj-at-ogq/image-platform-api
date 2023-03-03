@@ -22,8 +22,8 @@ class EsRequest(
         pageSize: Int
     ): SearchRequest {
         val queryBuilder = QueryBuilders.boolQuery()
-        addQueryStringTermQuery(query, queryBuilder)
-        addPublicityRightTermQuery(market.publicityRight, queryBuilder)
+        addQueryStringTerm(query, queryBuilder)
+        addPublicityRightTerm(market.publicityRight, queryBuilder)
 
         val sourceBuilder = SearchSourceBuilder()
         sourceBuilder.query(queryBuilder)
@@ -33,7 +33,7 @@ class EsRequest(
         return SearchRequest(indexName).source(sourceBuilder)
     }
 
-    private fun addQueryStringTermQuery(query: String, queryBuilder: BoolQueryBuilder) {
+    private fun addQueryStringTerm(query: String, queryBuilder: BoolQueryBuilder) {
         queryBuilder.must(
             QueryBuilders.queryStringQuery("*$query*")
                 .field("title")
@@ -43,7 +43,7 @@ class EsRequest(
         )
     }
 
-    private fun addPublicityRightTermQuery(
+    private fun addPublicityRightTerm(
         publicityRight: PublicityRight?,
         queryBuilder: BoolQueryBuilder
     ) {
