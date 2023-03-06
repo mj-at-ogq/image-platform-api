@@ -12,6 +12,12 @@ class PublicityRight(
     @OneToMany(mappedBy = "publicityRight")
     val salesMarkets: MutableSet<Market> = mutableSetOf(),
 ) {
+    fun attach(markets: Set<Market>) {
+        markets.forEach {
+            it.publicityRight = this
+        }
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
