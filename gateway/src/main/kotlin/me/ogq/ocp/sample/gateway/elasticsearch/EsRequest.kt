@@ -19,11 +19,11 @@ class EsRequest(
         market: Market,
         query: String,
         page: Int,
-        pageSize: Int
+        pageSize: Int,
     ): SearchRequest {
         val queryBuilder = QueryBuilders.boolQuery()
-        addQueryStringTerm(query, queryBuilder)
-        addPublicityRightTerm(market.publicityRight, queryBuilder)
+        addQueryStringTermInTitleNTags(query, queryBuilder)
+        addPublicityRightTermByIsNull(market.publicityRight, queryBuilder)
 
         val sourceBuilder = SearchSourceBuilder()
         sourceBuilder.query(queryBuilder)
@@ -33,21 +33,20 @@ class EsRequest(
         return SearchRequest(indexName).source(sourceBuilder)
     }
 
-    private fun addQueryStringTerm(query: String, queryBuilder: BoolQueryBuilder) {
+    private fun addQueryStringTermInTitleNTags(query: String, queryBuilder: BoolQueryBuilder) {
         queryBuilder.must(
             QueryBuilders.queryStringQuery("*$query*")
                 .field("title")
                 .field("tags")
                 .lenient(true)
-                .defaultOperator(Operator.OR)
+                .defaultOperator(Operator.OR),
         )
     }
 
-    private fun addPublicityRightTerm(
+    private fun addPublicityRightTermByIsNull(
         publicityRight: PublicityRight?,
-        queryBuilder: BoolQueryBuilder
+        queryBuilder: BoolQueryBuilder,
     ) {
-
         if (publicityRight == null) {
             queryBuilder.must(QueryBuilders.termQuery("publicity_id", "null"))
             return
@@ -57,6 +56,7 @@ class EsRequest(
             QueryBuilders.boolQuery()
                 .should(QueryBuilders.termQuery("publicity_id", "null"))
                 .should(QueryBuilders.termQuery("publicity_id", publicityRight.id.toString()))
+                .minimumShouldMatch(1),
         )
     }
 }
