@@ -8,10 +8,10 @@ import javax.persistence.OneToMany
 
 @Entity
 class PublicityRight(
-    @Id
+    @Id // 클라이언트로부터 ID를 전달 받는 것이 비지니스 요구사항임
     var id: Long,
     @OneToMany(mappedBy = "publicityRight", cascade = [CascadeType.ALL])
-    val salesMarkets: MutableSet<Market> = mutableSetOf()
+    val salesMarkets: MutableSet<Market> = mutableSetOf(),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
