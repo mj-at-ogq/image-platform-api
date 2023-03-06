@@ -1,16 +1,27 @@
 package me.ogq.ocp.sample.model.publicityright
 
 import me.ogq.ocp.sample.model.image.Image
-import java.util.UUID
 import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
+import javax.persistence.TableGenerator
 
 @Entity
+@TableGenerator(
+    name = "market_seq_generator",
+    table = "market_sequences",
+    pkColumnName = "sequence",
+    pkColumnValue = "market",
+    valueColumnName = "value",
+    allocationSize = 100,
+)
 class Market(
     @Id
-    val id: String = UUID.randomUUID().toString(),
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "market_seq_generator")
+    val id: String = "",
     @ManyToOne
     @JoinColumn(name = "publicity_right_id", referencedColumnName = "id")
     var publicityRight: PublicityRight?,
