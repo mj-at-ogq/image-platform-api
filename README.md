@@ -9,14 +9,14 @@
 <img width="500" alt="image" src="https://user-images.githubusercontent.com/16694346/222611883-14b5ff54-cc8a-48a7-8b5c-128cca935bcf.png">
 
 - UML
-<img width="750" alt="image" src="https://user-images.githubusercontent.com/16694346/222611933-c977cec1-ecd6-42d6-81a1-48cb83ff3521.png">
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/16694346/223031221-98564be2-5faf-409d-9031-b5309fe83da9.png">
 
 - ERD
-<img width="750" alt="image" src="https://user-images.githubusercontent.com/16694346/222611968-2ab06c41-2edf-41de-ba9f-fb81dc4b617e.png">
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/16694346/222611968-2ab06c41-2edf-41de-ba9f-fb81dc4b617e.png">
 
 ### 다. 이미지 메타 등록 기능 설계
 - UML
-<img width="750" alt="image" src="https://user-images.githubusercontent.com/16694346/222612061-f03e0c9d-77c0-40f4-a3d8-0fb0b8fa751d.png">
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/16694346/223031240-a96b7c1d-5000-4e8d-8d5e-76edebcdde41.png">
 
 
 ### 라. 용어 정리
