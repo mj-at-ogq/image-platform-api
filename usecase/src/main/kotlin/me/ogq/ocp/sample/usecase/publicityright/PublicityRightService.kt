@@ -18,7 +18,7 @@ class PublicityRightService(
 
         val result = publicityRight.salesMarkets
             .map { market -> market.id }
-            .toMutableSet()
+            .toSet()
 
         return PublicityRightDto(result)
     }
