@@ -25,6 +25,7 @@ class EsRequest(
         addQueryStringTermInTitleNTags(query, queryBuilder)
         addPublicityRightTermByIsNull(market.publicityRight, queryBuilder)
 
+
         val sourceBuilder = SearchSourceBuilder()
         sourceBuilder.query(queryBuilder)
         sourceBuilder.from(page * pageSize)
@@ -34,6 +35,7 @@ class EsRequest(
     }
 
     private fun addQueryStringTermInTitleNTags(query: String, queryBuilder: BoolQueryBuilder) {
+
         queryBuilder.must(
             QueryBuilders.queryStringQuery("*$query*")
                 .field("title")
@@ -44,9 +46,11 @@ class EsRequest(
     }
 
     private fun addPublicityRightTermByIsNull(
+
         publicityRight: PublicityRight?,
         queryBuilder: BoolQueryBuilder,
     ) {
+
         if (publicityRight == null) {
             queryBuilder.must(QueryBuilders.termQuery("publicity_id", "null"))
             return
@@ -57,6 +61,7 @@ class EsRequest(
                 .should(QueryBuilders.termQuery("publicity_id", "null"))
                 .should(QueryBuilders.termQuery("publicity_id", publicityRight.id.toString()))
                 .minimumShouldMatch(1),
+
         )
     }
 }
