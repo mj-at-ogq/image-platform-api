@@ -1,16 +1,15 @@
 package me.ogq.ocp.sample.model.publicityright
 
 import me.ogq.ocp.sample.model.image.Image
-import javax.persistence.CascadeType
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.OneToMany
 
 @Entity
 class PublicityRight(
-    @Id // 클라이언트로부터 ID를 전달 받는 것이 비지니스 요구사항임
+    @Id
     var id: Long,
-    @OneToMany(mappedBy = "publicityRight", cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "publicityRight")
     val salesMarkets: MutableSet<Market> = mutableSetOf(),
 ) {
     override fun equals(other: Any?): Boolean {

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class RegisterPublicityRightService(
     private val publicityRightRepository: PublicityRightRepository,
-    private val marketRepository: MarketRepository
+    private val marketRepository: MarketRepository,
 ) {
     @Transactional
     fun register(cmd: RegisterPublicityRightCommand): RegisterPublicityRightDto {
@@ -26,7 +26,6 @@ class RegisterPublicityRightService(
         val salesMarkets = marketRepository.findAllIn(salesMarketIds)
         for (market in salesMarkets) {
             market.publicityRight = publicityRight
-            publicityRight.salesMarkets.add(market)
         }
         publicityRightRepository.save(publicityRight)
     }
